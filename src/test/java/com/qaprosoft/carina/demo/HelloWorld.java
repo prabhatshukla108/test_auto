@@ -15,6 +15,7 @@
  */
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 

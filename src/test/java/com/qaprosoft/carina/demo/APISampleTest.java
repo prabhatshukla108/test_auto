@@ -15,6 +15,7 @@
  */
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.annotations.Test;
 

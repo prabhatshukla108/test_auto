@@ -15,6 +15,8 @@
  */
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
+import org.testng.Assert;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
@@ -89,20 +91,20 @@ public class DBSampleTest extends AbstractTest {
 		try (SqlSession session = ConnectionFactory.getSqlSessionFactory().openSession(true)) {
 			UserMapper userMapper = session.getMapper(UserMapper.class);
 			userMapper.delete(USER);
-			assertNull(userMapper.findById(USER.getId()));
+			Assert.assertNull(userMapper.findById(USER.getId()));
 		}
 	}
 
 	private void checkUser(User user) {
-		assertEquals(user.getUsername(), USER.getUsername(), "User name must match");
-		assertEquals(user.getFirstName(), USER.getFirstName(), "First name must match");
-		assertEquals(user.getLastName(), USER.getLastName(), "Last name must match");
-		assertEquals(user.getEmail(), USER.getEmail(), "Email must match");
+		Assert.assertEquals(user.getUsername(), USER.getUsername(), "User name must match");
+		Assert.assertEquals(user.getFirstName(), USER.getFirstName(), "First name must match");
+		Assert.assertEquals(user.getLastName(), USER.getLastName(), "Last name must match");
+		Assert.assertEquals(user.getEmail(), USER.getEmail(), "Email must match");
 	}
 
 	private void checkUserPreference(UserPreference userPreference) {
-		assertEquals(userPreference.getName(), USER_PREFERENCE.getName(), "Preference name must match");
-		assertEquals(userPreference.getValue(), USER_PREFERENCE.getValue(), "Preference value must match");
-		assertEquals(userPreference.getUserId(), USER_PREFERENCE.getUserId(), "Preference user id must match");
+		Assert.assertEquals(userPreference.getName(), USER_PREFERENCE.getName(), "Preference name must match");
+		Assert.assertEquals(userPreference.getValue(), USER_PREFERENCE.getValue(), "Preference value must match");
+		Assert.assertEquals(userPreference.getUserId(), USER_PREFERENCE.getUserId(), "Preference user id must match");
 	}
 }

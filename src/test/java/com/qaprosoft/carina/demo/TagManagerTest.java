@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import com.qaprosoft.carina.core.foundation.AbstractTest;
 import com.qaprosoft.carina.core.foundation.commons.SpecialKeywords;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -49,10 +51,10 @@ public class TagManagerTest extends AbstractTest {
     public void testPriority() {
         ITestResult result = Reporter.getCurrentTestResult();
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P1");
+        AssertJUnit.assertEquals(priority, "P1");
         String ownerName = Ownership.getMethodOwner(result);
         LOGGER.info("Owner:= " + ownerName);
-        Assert.assertEquals(ownerName, "qpsdemo");
+        AssertJUnit.assertEquals(ownerName, "qpsdemo");
     }
 
     @Test
@@ -60,7 +62,7 @@ public class TagManagerTest extends AbstractTest {
     public void testPriorityExample() {
         ITestResult result = Reporter.getCurrentTestResult();
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P1");
+        AssertJUnit.assertEquals(priority, "P1");
     }
 
     @Test
@@ -69,7 +71,7 @@ public class TagManagerTest extends AbstractTest {
     public void testPriorityCompliance() {
         ITestResult result = Reporter.getCurrentTestResult();
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P0");
+        AssertJUnit.assertEquals(priority, "P0");
     }
 
     @Test
@@ -79,8 +81,8 @@ public class TagManagerTest extends AbstractTest {
     public void testTags() {
         ITestResult result = Reporter.getCurrentTestResult();
         Map<String, String> tag = TagManager.getTags(result);
-        Assert.assertTrue(tag.containsKey(TAG_NAME));
-        Assert.assertEquals(tag.get(TAG_NAME), TAG_VALUE);
+        AssertJUnit.assertTrue(tag.containsKey(TAG_NAME));
+        AssertJUnit.assertEquals(tag.get(TAG_NAME), TAG_VALUE);
     }
 
     @Test
@@ -91,10 +93,10 @@ public class TagManagerTest extends AbstractTest {
     public void testRepeatableTags() {
         ITestResult result = Reporter.getCurrentTestResult();
         Map<String, String> tags = TagManager.getTags(result);
-        Assert.assertTrue(tags.containsKey(TAG_NAME));
-        Assert.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
-        Assert.assertTrue(tags.containsKey(TAG_NAME2));
-        Assert.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME2));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
     }
 
     @Test
@@ -105,12 +107,12 @@ public class TagManagerTest extends AbstractTest {
     public void testForbiddenTags() {
         ITestResult result = Reporter.getCurrentTestResult();
         Map<String, String> tags = TagManager.getTags(result);
-        Assert.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
-        Assert.assertTrue(tags.containsKey(TAG_NAME));
-        Assert.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
-        Assert.assertTrue(tags.containsKey(TAG_NAME2));
-        Assert.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
-        Assert.assertEquals(tags.size(), 2);
+        AssertJUnit.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME2));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
+        AssertJUnit.assertEquals(tags.size(), 2);
     }
 
     @Test
@@ -119,10 +121,10 @@ public class TagManagerTest extends AbstractTest {
     public void testForbiddenPriorityTag() {
         ITestResult result = Reporter.getCurrentTestResult();
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P1");
+        AssertJUnit.assertEquals(priority, "P1");
         Map<String, String> tags = TagManager.getTags(result);
-        Assert.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
-        Assert.assertEquals(tags.size(), 0);
+        AssertJUnit.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
+        AssertJUnit.assertEquals(tags.size(), 0);
     }
 
     @Test
@@ -134,18 +136,18 @@ public class TagManagerTest extends AbstractTest {
         ITestResult result = Reporter.getCurrentTestResult();
         Map<String, String> tags = TagManager.getTags(result);
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P2");
-        Assert.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
-        Assert.assertTrue(tags.containsKey(TAG_NAME));
-        Assert.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
-        Assert.assertTrue(tags.containsKey(TAG_NAME2));
-        Assert.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
-        Assert.assertEquals(tags.size(), 2);
+        AssertJUnit.assertEquals(priority, "P2");
+        AssertJUnit.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME2));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
+        AssertJUnit.assertEquals(tags.size(), 2);
         Set<TagType> tagsTypes = getTestTags(result);
-        Assert.assertEquals(tagsTypes.size(), 3);
+        AssertJUnit.assertEquals(tagsTypes.size(), 3);
         for (TagType entry : tagsTypes) {
             if (entry.getName().equals(SpecialKeywords.TEST_PRIORITY_KEY)) {
-                Assert.assertEquals(entry.getValue(), "P2");
+                AssertJUnit.assertEquals(entry.getValue(), "P2");
             }
         }
 
@@ -163,19 +165,19 @@ public class TagManagerTest extends AbstractTest {
     public void testZafiraGetTagsMethodWoPriority() {
         ITestResult result = Reporter.getCurrentTestResult();
         String priority = PriorityManager.getPriority(result);
-        Assert.assertEquals(priority, "P6");
+        AssertJUnit.assertEquals(priority, "P6");
         Map<String, String> tags = TagManager.getTags(result);
-        Assert.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
-        Assert.assertTrue(tags.containsKey(TAG_NAME));
-        Assert.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
-        Assert.assertTrue(tags.containsKey(TAG_NAME2));
-        Assert.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
-        Assert.assertEquals(tags.size(), 2);
+        AssertJUnit.assertFalse(tags.containsKey(FORBIDDEN_KEY_PRIORITY));
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME), TAG_VALUE);
+        AssertJUnit.assertTrue(tags.containsKey(TAG_NAME2));
+        AssertJUnit.assertEquals(tags.get(TAG_NAME2), TAG_VALUE2);
+        AssertJUnit.assertEquals(tags.size(), 2);
         Set<TagType> tagsTypes = getTestTags(result);
-        Assert.assertEquals(tagsTypes.size(), 3);
+        AssertJUnit.assertEquals(tagsTypes.size(), 3);
         for (TagType entry : tagsTypes) {
             if (entry.getName().equals(TAG_NAME2)) {
-                Assert.assertEquals(entry.getValue(), TAG_VALUE2);
+                AssertJUnit.assertEquals(entry.getValue(), TAG_VALUE2);
             }
         }
 

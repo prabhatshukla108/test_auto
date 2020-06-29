@@ -1,5 +1,7 @@
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
+import org.testng.Assert;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;

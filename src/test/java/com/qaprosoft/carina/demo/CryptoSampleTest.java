@@ -15,6 +15,8 @@
  *******************************************************************************/
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import com.qaprosoft.carina.core.foundation.AbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import org.testng.Assert;
@@ -29,18 +31,18 @@ public class CryptoSampleTest extends AbstractTest {
 
     @Test
     public void testPlaceholdersWithEncryptionTestData() {
-        Assert.assertEquals(R.TESTDATA.get("test_credentials"), "test@gmail.com/EncryptMe");
+        AssertJUnit.assertEquals(R.TESTDATA.get("test_credentials"), "test@gmail.com/EncryptMe");
     }
 
 
     @Test
     public void testEncryption() {
-        Assert.assertEquals(R.CONFIG.get("password"), "EncryptMe");
+        AssertJUnit.assertEquals(R.CONFIG.get("password"), "EncryptMe");
     }
 
     @Test
     public void testPlaceholdersWithEncryption() {
-        Assert.assertEquals(R.CONFIG.get("credentials"), "test@gmail.com/EncryptMe");
+        AssertJUnit.assertEquals(R.CONFIG.get("credentials"), "test@gmail.com/EncryptMe");
     }
 
 }

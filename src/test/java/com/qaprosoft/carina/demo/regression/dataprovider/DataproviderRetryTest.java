@@ -15,6 +15,8 @@
  */
 package com.qaprosoft.carina.demo.regression.dataprovider;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.Random;
 
 import org.testng.Assert;

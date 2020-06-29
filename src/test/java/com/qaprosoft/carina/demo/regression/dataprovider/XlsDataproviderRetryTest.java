@@ -15,6 +15,8 @@
  */
 package com.qaprosoft.carina.demo.regression.dataprovider;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -34,7 +36,7 @@ public class XlsDataproviderRetryTest extends AbstractTest {
     public void testMethod(String arg) {
     	LOGGER.info("arg: " + arg);
         boolean isPassed = (new Random().nextInt(3) == 1) ? true : false;
-        Assert.assertTrue(isPassed);
+        AssertJUnit.assertTrue(isPassed);
     }
     
 }

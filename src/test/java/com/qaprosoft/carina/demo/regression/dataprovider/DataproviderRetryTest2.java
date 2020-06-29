@@ -15,10 +15,10 @@
  */
 package com.qaprosoft.carina.demo.regression.dataprovider;
 
-import java.util.Random;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Random;
 
 import com.qaprosoft.carina.core.foundation.AbstractTest;
 import com.qaprosoft.carina.core.foundation.utils.ownership.MethodOwner;
@@ -40,7 +40,7 @@ public class DataproviderRetryTest2 extends AbstractTest {
         setCases(testRailColumn.split(","));
         int actual = a * b;
         int expected = c;
-        Assert.assertEquals(actual, expected, "Invalid sum result!");
+        Assert.assertEquals(actual, expected, "Invalid sum");
     }
 
 }

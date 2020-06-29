@@ -15,6 +15,8 @@
  */
 package com.qaprosoft.carina.demo.regression.dataprovider;
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import java.util.Random;
 
 import org.testng.Assert;
@@ -35,7 +37,7 @@ public class DataproviderRetryTest1 extends AbstractTest {
     @MethodOwner(owner = "qpsdemo")
     public void testDataproviderRetry1(String testRailColumn, int a, int b, int c) {
         boolean isPassed = (new Random().nextInt(4) == 1) ? true : false;
-        Assert.assertTrue(isPassed);
+        AssertJUnit.assertTrue(isPassed);
         
         setCases(testRailColumn.split(","));
         int actual = a * b;

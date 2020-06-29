@@ -15,6 +15,8 @@
  */
 package com.qaprosoft.carina.demo;
 
+import org.testng.annotations.Test;
+import org.testng.Assert;
 import java.util.List;
 
 import com.qaprosoft.carina.core.foundation.utils.tag.Priority;
