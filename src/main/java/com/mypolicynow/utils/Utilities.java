@@ -39,7 +39,7 @@ public class Utilities {
 		driver.findElement(By.xpath("(//input[@class='form-control'])[11]")).sendKeys("03-05-2019");
 	}
 
-	public boolean validateElementsbyText(WebDriver driver,String text) {
+	public boolean eleIsDisplayedbyText(WebDriver driver,String text) {
 
 		boolean bool = driver.findElement(By.xpath("//*[text()='"+text+"']")).isDisplayed();
 

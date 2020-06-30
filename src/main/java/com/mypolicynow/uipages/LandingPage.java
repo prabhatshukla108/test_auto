@@ -20,23 +20,28 @@ public class LandingPage  extends AbstractPage {
 	
 	public String verifyLandingpageElements() throws InterruptedException {
 		
-		boolean c = util.validateElementsbyText(driver," Car");
+		boolean c = util.eleIsDisplayedbyText(driver," Car");
 		Thread.sleep(500);
-		boolean b = util.validateElementsbyText(driver," Bike");
+		boolean b = util.eleIsDisplayedbyText(driver," Bike");
 		Thread.sleep(500);
-		boolean comm = util.validateElementsbyText(driver," Commercial");
+		boolean comm = util.eleIsDisplayedbyText(driver," Commercial");
 		Thread.sleep(500);
-		boolean tra = util.validateElementsbyText(driver," Travel");
+		boolean tra = util.eleIsDisplayedbyText(driver," Travel");
 		Thread.sleep(500);
-		boolean l = util.validateElementsbyText(driver," Life");
+//		boolean l = util.eleIsDisplayedbyText(driver," Life");
 		Thread.sleep(500);
-		boolean h = util.validateElementsbyText(driver," Health");
+		boolean h = util.eleIsDisplayedbyText(driver," Health");
 		
-		String s=c+"|"+b+"|"+comm+"|"+tra+"|"+l+"|"+h;
+		String s=c+"|"+b+"|"+comm+"|"+tra+"|"+h;
 		System.out.println("String :"+s);
 	return s;
 	}
 	
+	public GetQuotePage getGQPdriver() {
+		
+		return new GetQuotePage(getDriver());
+		
+	}
 	
 	
 

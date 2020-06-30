@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ISelect;
@@ -105,8 +106,14 @@ public class GetQuotePage extends AbstractPage {
 
 	@FindBy(xpath = "//button[@id='get_quote_submit']")
 	private ExtendedWebElement btnGetQuote;
+	
+	@FindBy(xpath = "//*[text()='Ex Showroom : ']")
+	private ExtendedWebElement ttExshowroom;
 
 	Utilities util = new Utilities();
+	Actions actions = new Actions(getDriver());
+	
+
 
 	public boolean validationGQPMessage(String field, String message) {
 //		WebDriver driver
@@ -119,14 +126,23 @@ public class GetQuotePage extends AbstractPage {
 
 	}
 
-	public String testPlaceholder(String username, String password) throws InterruptedException {
+	public String validatePlaceholder() throws InterruptedException {
 		// Open home page and verify page is opened,
-		LoginPage lp = new LoginPage(getDriver());
-		lp.open();
-		Assert.assertTrue(lp.isPageOpened(), "Home page is not opened");
-		lp.login(username, password);
-		boolean rto = util.validateElementsbyText(driver, "");
-		String s = "";
+		
+		boolean rto = util.eleIsDisplayedbyText(driver, "Select RTO");
+		Thread.sleep(500);
+		boolean make = util.eleIsDisplayedbyText(driver, "Select A Make");
+		Thread.sleep(500);
+		boolean mod = util.eleIsDisplayedbyText(driver, "Select A Variant");
+		Thread.sleep(500);
+		boolean var = util.eleIsDisplayedbyText(driver, "Select Manufacturing Year");
+		Thread.sleep(500);
+		boolean mon = util.eleIsDisplayedbyText(driver, "Select Manufacturing Month");
+		Thread.sleep(500);
+		boolean type = util.eleIsDisplayedbyText(driver, "Select Type");
+		Thread.sleep(500);
+		boolean disct = util.eleIsDisplayedbyText(driver, "Max Discount");
+		String s = rto + "|" + make + "|" + mod + "|" + var + "|" + mon + "|" + type + "|" + disct;
 		return s;
 
 	}
@@ -138,28 +154,25 @@ public class GetQuotePage extends AbstractPage {
 		else {
 			System.out.println("BTN CAR NOT CLICKABLE");
 		}
-//		if (btnGetQuote.isElementPresent() && btnGetQuote.isClickable()) {
-//			btnGetQuote.click();
-//		} else {
-//			LOGGER.error("BUTToN QUOTE NOT PRESENT");
-//		}
+
 		btnGetQuote.click();
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean rto = validationGQPMessage("RTO (EX. MH-02) ", "Please select rto");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean make = validationGQPMessage("Make ", "Please select make");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean model = validationGQPMessage("Model ", "Please select model");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean variant = validationGQPMessage("Variant ", "Please select variant");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean year = validationGQPMessage("Manufacturing Year ", "Please select manufacturing year");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean month = validationGQPMessage("Manufacturing Month ", "Please select manufacturing month");
-		Thread.sleep(1000);
+		Thread.sleep(500);
 		boolean date = validationGQPMessage("Purchase/Registration Date ", "Please enter purchase/registration date");
-//		boolean holdertype = validationGQPMessage("Policy Holder Type ", "Please select policy holder type");
-		s = rto + "|" + make + "|" + model + "|" + variant + "|" + year + "|" + month + "|" + date;
+		Thread.sleep(500);
+		boolean holdertype = validationGQPMessage("Policy Holder Type", "Please select policy holder type");
+		s = rto + "|" + make + "|" + model + "|" + variant + "|" + year + "|" + month + "|" + date + "|" + holdertype;
 		System.out.println("s :" + s);
 		return s;
 	}
@@ -172,16 +185,14 @@ public class GetQuotePage extends AbstractPage {
 		try {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			System.out.println("IN TESTGET");
-//			Thread.sleep(2000);
-//			if (btnCar.isClickable())
-//				btnCar.click();
-//			else {
-//				System.out.println("BTN CAR NOT CLICKABLE");
-//			}
 
 			try {
+				if (btnCar.isClickable())
+					btnCar.click();
+				else {
+					System.out.println("BTN CAR NOT CLICKABLE");
+				}
 				if (btnComprehensivePolicy.isElementPresent() && btnComprehensivePolicy.isClickable()) {
-//				btnCar.click();
 					LOGGER.debug("CLICKED ComprehensivePolicy BUTTON");
 					btnComprehensivePolicy.click();
 					LOGGER.debug("CLICKED LOGIN BUTTON");
@@ -191,6 +202,7 @@ public class GetQuotePage extends AbstractPage {
 				System.out.println("CANT click comprehensive : " + e.getLocalizedMessage());
 			}
 			if (btnNewPolicy.isElementPresent() && btnNewPolicy.isElementPresent()) {
+				WebElement element =driver.findElement(By.xpath("//button[@id='get_quote_submit']"));
 				Thread.sleep(2000);
 				btnNewPolicy.click();
 				Thread.sleep(1000);
@@ -233,18 +245,25 @@ public class GetQuotePage extends AbstractPage {
 				} else {
 					LOGGER.error("Verfiy the string check OD inserted");
 				}
-				if (chkStandAlone1OD1TP.isClickable()) {
-					if (chkstandaloneOD.equalsIgnoreCase("1")) {
-						chkStandAlone1OD1TP.click();
-					} else if (chkstandaloneOD.equals("0")) {
-						chkStandAlone1OD0TP.click();
-					} else {
-						LOGGER.error("Verfiy the string check standaloneOD inserted as " + chkstandaloneOD);
-						System.out.println("STANDALONE OD NOT CLICKED");
-					}
-				} else {
+				// IF STD ALONE OD IS PRESENT and NOT NULL
+				if (!chkstandaloneOD.isEmpty()) {
+					try {
+						if (chkStandAlone1OD1TP.isClickable()) {
+							if (chkstandaloneOD.equalsIgnoreCase("1")) {
+								chkStandAlone1OD1TP.click();
+							} else if (chkstandaloneOD.equals("0")) {
+								chkStandAlone1OD0TP.click();
+							} else {
+								LOGGER.error("Verfiy the string check standaloneOD inserted as " + chkstandaloneOD);
+								System.out.println("STANDALONE OD NOT ");
+							}
+						} else {
 
-					System.out.println("STANDALONE OD NOT PRESENT");
+							System.out.println("STANDALONE OD NOT PRESENT");
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 
 				if (chkvalidLicence.equalsIgnoreCase("y")) {
@@ -253,7 +272,13 @@ public class GetQuotePage extends AbstractPage {
 						if (chkanotherMotorInsPol.equalsIgnoreCase("Y")) {
 							chkOwnerpolicyYes.click();
 							if (btnGetQuote.isElementPresent() && btnGetQuote.isClickable()) {
-								btnGetQuote.click();
+								((JavascriptExecutor)
+										driver).executeScript("window.scrollBy(289.67,60)");	
+										Thread.sleep(2000);
+										btnGetQuote.click();
+										Thread.sleep(5000);
+								Thread.sleep(5000);
+								System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
 							} else {
 								LOGGER.error("BUTToN QUOTE NOT PRESENT");
 							}
@@ -263,7 +288,11 @@ public class GetQuotePage extends AbstractPage {
 								if (chkPAPolicy15.equalsIgnoreCase("Y")) {
 									chkPApolicyYes.click();
 									if (btnGetQuote.isElementPresent() && btnGetQuote.isClickable()) {
+										((JavascriptExecutor)
+												driver).executeScript("window.scrollBy(289.67,60)");	
+										Thread.sleep(2000);
 										btnGetQuote.click();
+										System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
 									} else {
 										LOGGER.error("BUTToN QUOTE NOT PRESENT");
 									}
@@ -272,12 +301,27 @@ public class GetQuotePage extends AbstractPage {
 									if (chkPApolicy1yrs.isElementPresent() && chkPApolicy3yrs.isPresent()) {
 										if (chkPACover.equalsIgnoreCase("1")) {
 											chkPApolicy1yrs.click();
+											((JavascriptExecutor)
+											driver).executeScript("window.scrollBy(289.67,60)");	
+											Thread.sleep(2000);
 											btnGetQuote.click();
+											Thread.sleep(5000);
+											boolean bool = ttExshowroom.isElementPresent();
+											Assert.assertTrue(bool,"Element Exshowroom not present");
+											System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
+//											WebElement btnGetQuot = driver.findElement(By.xpath("//*[@id='get_quote_submit']"));
+											System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
 										} else if (chkPACover.equalsIgnoreCase("3")) {
 											chkPApolicy3yrs.click();
-											btnGetQuote.scrollTo();
+										((JavascriptExecutor)
+											driver).executeScript("window.scrollBy(289.67,60)");	
+										Thread.sleep(2000);
 											btnGetQuote.click();
-											Thread.sleep(7000);
+//											actions.moveToElement(element).click().perform();
+											Thread.sleep(5000);
+											boolean bool = ttExshowroom.isElementPresent();
+											Assert.assertTrue(bool,"Element Exshowroom not present");
+											System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
 //											WebElement btnGetQuot = driver.findElement(By.xpath("//*[@id='get_quote_submit']"));
 //											js.executeScript("arguments[0].scrollIntoView()", btnGetQuot); 
 
@@ -297,10 +341,16 @@ public class GetQuotePage extends AbstractPage {
 				} else if (chkvalidLicence.equalsIgnoreCase("n")) {
 					chkValidLicenseNo.click();
 					if (btnGetQuote.isElementPresent() && btnGetQuote.isClickable()) {
-						btnGetQuote.hover();
+						Thread.sleep(1000);
+						js.executeScript("scroll(250, 0)");
 						btnGetQuote.click();
+						Thread.sleep(4000);
+						boolean bool = ttExshowroom.isElementPresent();
+						Assert.assertTrue(bool,"Element Exshowroom not present");
+						
+					System.out.println("TITLE GETPAGE *************** :"+driver.getTitle());
 					} else {
-						LOGGER.error("BUTToN QUOTE NOT PRESENT");
+						LOGGER.error("BUTTON QUOTE NOT PRESENT");
 					}
 
 				}
