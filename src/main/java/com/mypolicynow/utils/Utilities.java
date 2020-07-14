@@ -5,28 +5,19 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 
 public class Utilities {
+//	WebDriver driver ;
+//
+//	WebDriverWait wait = new WebDriverWait(driver, 5);
 
-	public void selectBytext(ExtendedWebElement selRTO, String text) {
-		Select select = new Select((WebElement) selRTO);
-		select.selectByVisibleText(text);
+	public void wait(int time) throws InterruptedException {
+		Thread.sleep(time);
 	}
-
-	public void selectByIndex(WebElement ele, int index) {
-		Select select = new Select(ele);
-		select.selectByIndex(index);
-
-	}
-
-	public void selectByValue(ExtendedWebElement selRTO, String value) {
-		Select select = new Select((WebElement) selRTO);
-		select.selectByValue(value);
-	}
-
 	public void CalendarTest(WebDriver driver) {
 		// Creating JavascriptExecutor interface object Type casting
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -49,6 +40,7 @@ public class Utilities {
 	}
 
 	public String[] assertBoolean(String str) {
+		System.out.println("IN ASSERT BOOLEAN : ");
 
 		String[] s = str.split("\\|");
 

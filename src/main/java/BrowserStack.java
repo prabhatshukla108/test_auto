@@ -31,7 +31,7 @@ public class BrowserStack {
     textButton.click();
     IOSElement textInput = (IOSElement) new WebDriverWait(driver, 30).until(
         ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId("Text Input")));
-    textInput.sendKeys("hello@browserstack.com");
+    textInput.sendKeys("hello Prabhatshukla");
 
     driver.findElementByAccessibilityId("Next").click();  
     Thread.sleep(5000);
@@ -39,7 +39,7 @@ public class BrowserStack {
     IOSElement textOutput = (IOSElement) new WebDriverWait(driver, 30).until(
         ExpectedConditions.elementToBeClickable(MobileBy.AccessibilityId("Text Output")));
 
-    if(textOutput != null && textOutput.getText().equals("hello@browserstack.com"))
+    if(textOutput != null && textOutput.getText().equals("hello Prabhatshukla"))
         assert(true);
     else
         assert(false);

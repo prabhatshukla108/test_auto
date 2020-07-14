@@ -35,25 +35,50 @@ public class LoginPage extends AbstractPage {
 
 	@FindBy(xpath = "//button[@id='login_submit']")
 	private ExtendedWebElement btnSubmit;
-
+	
+	@FindBy(xpath = "//*[text()='Invalid Credentials']")
+	private ExtendedWebElement btnValidationMsg;
 	public boolean verifyLoginvalidationsmsg() {
 		boolean bool = false;
 		try {
-			if (btnLogin.isElementPresent() && btnLogin.isClickable()) {
-				btnLogin.click();
-				LOGGER.debug("CLICKED LOGIN BUTTON");
-			}
-			btnSubmit.click();
+			clickBtnLogin();
+			clickBtnSubmit();
 			bool = driver.findElement(By.xpath("//*[text()='Invalid Credentials']")).isDisplayed();
-			System.out.println("BOOL :" + bool);
+			System.out.println("BOOL msg :" + bool);
 
-			driver.findElement(By.xpath("//button[@class='mfp-close']")).click();
-			Thread.sleep(2000);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bool;
+	}
+	public void clickBtnLogin() {
+		if (btnLogin.isElementPresent(1000) && btnLogin.isClickable()) {
+			btnLogin.click();
+			LOGGER.debug("CLICKED LOGIN BUTTON");
+		}
+	}
+	
+	public void enterUsernameAndPass(String username, String password) {
+		if (txtUsername.isElementPresent(1000) && txtPassword.isElementPresent()) {
+			txtUsername.type(username);
+			LOGGER.debug("ENTERED USERNAME");
+			txtPassword.type(password);
+			LOGGER.debug("ENTERED PASSWORD");
+		
+		}
+	}
+	
+	public void clickBtnSubmit() {
+		try {
+			if(btnSubmit.isElementPresent() && btnSubmit.isClickable())
+				btnSubmit.click();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		
 	}
 
 	public String testLogin(String username, String password) {
@@ -61,32 +86,17 @@ public class LoginPage extends AbstractPage {
 		boolean boolRememberMe = false, btnfrgtpass = false;
 		// Open home page and verify page is opened
 		try {
-//			driver.navigate().refresh();
-
-			if (btnLogin.isElementPresent() && btnLogin.isClickable()) {
-				btnLogin.click();
-				LOGGER.debug("CLICKED LOGIN BUTTON");
-			}
-			if (txtUsername.isElementPresent() && txtPassword.isElementPresent()) {
-				txtUsername.type(username);
-				LOGGER.debug("ENTERED USERNAME");
-				txtPassword.type(password);
-				LOGGER.debug("ENTERED PASSWORD");
-				btnfrgtpass = btnForgetPass.isElementPresent();
-				System.out.println(btnfrgtpass);
-				boolRememberMe = chkRememberme.isElementPresent();
-				System.out.println(boolRememberMe);
-			}
-			if (btnSubmit.isElementPresent() && btnSubmit.isClickable()) {
-				btnSubmit.click();
-				Thread.sleep(1000);
-				title = driver.getTitle();
-
-			}
-
-			title = title + "|" + boolRememberMe + "|" + btnfrgtpass;
-			System.out.println("LOGIN VALIDATION :" + title);
-			System.out.println("Logged in successfully");
+			clickBtnLogin();
+			enterUsernameAndPass(username, password);
+			btnfrgtpass = btnForgetPass.isElementPresent();
+			System.out.println(btnfrgtpass);
+			boolRememberMe = chkRememberme.isElementPresent();
+			System.out.println(boolRememberMe);
+			clickBtnSubmit();
+//			boolean validationmsg = !(btnValidationMsg.isElementPresent());
+//			System.out.println("VLADTION MSG :"+validationmsg);
+			title=boolRememberMe + "|" + btnfrgtpass;
+//			System.out.println("Logged in successfully :"+title );
 
 		} catch (Exception e) {
 			LOGGER.error("FAILED LOGIN :" + e.getLocalizedMessage());
@@ -97,23 +107,23 @@ public class LoginPage extends AbstractPage {
 	public LandingPage getLandingDriver() {
 		return new LandingPage(getDriver());
 	}
-	public void login(String username, String pass) throws InterruptedException {
-
-		if (btnLogin.isElementPresent() && btnLogin.isClickable()) {
-			btnLogin.click();
-			LOGGER.debug("CLICKED LOGIN BUTTON");
-		}
-		if (txtUsername.isElementPresent() && txtPassword.isElementPresent()) {
-			txtUsername.type(username);
-			LOGGER.debug("ENTERED USERNAME");
-			txtPassword.type(pass);
-			LOGGER.debug("ENTERED PASSWORD");
-			
-		}
-		if (btnSubmit.isElementPresent() && btnSubmit.isClickable()) {
-			btnSubmit.click();
-			Thread.sleep(1000);
-		}		
-	}
+//	public void login(String username, String pass) throws InterruptedException {
+//
+//		if (btnLogin.isElementPresent() && btnLogin.isClickable()) {
+//			btnLogin.click();
+//			LOGGER.debug("CLICKED LOGIN BUTTON");
+//		}
+//		if (txtUsername.isElementPresent() && txtPassword.isElementPresent()) {
+//			txtUsername.type(username);
+//			LOGGER.debug("ENTERED USERNAME");
+//			txtPassword.type(pass);
+//			LOGGER.debug("ENTERED PASSWORD");
+//			
+//		}
+//		if (btnSubmit.isElementPresent() && btnSubmit.isClickable()) {
+//			btnSubmit.click();
+//			Thread.sleep(1000);
+//		}		
+//	}
 
 }

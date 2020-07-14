@@ -4,6 +4,7 @@
   <test thread-count="1" name="Test">
     <classes>
       <class name="com.mypolicynow.tests.GetQuotePageTest"/>
+      <class name="com.mypolicynow.tests.LoginPageTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
