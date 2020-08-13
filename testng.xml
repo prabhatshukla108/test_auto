@@ -3,8 +3,7 @@
 <suite name="Suite">
   <test thread-count="1" name="Test">
     <classes>
-      <class name="com.mypolicynow.tests.GetQuotePageTest"/>
-      <class name="com.mypolicynow.tests.LoginPageTest"/>
+      <class name="com.sarafu.client.apps.tests.LoginAppTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

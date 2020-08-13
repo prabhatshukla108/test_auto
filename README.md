@@ -18,4 +18,20 @@ Here you have to specify the absolute path to the Eclipse workspace. After that,
 Generate Eclipse workspace using command:
 ```
 mvn clean eclipse:eclipse
+
+
+*************************************************************
+
+In order to run the test : 
+Right click on testng.xml and run as TestNG.
+
+Src/main/java : It has the two packages :
+1. One packages has a abstract base class where only methods are written.
+2. Other packages has class the extends this abstract class and has implemention of the overriden mehtods.
+
+Src/test/java: 
+1. All the tests with assertions are written here.
+
+Report : 
+The test execution report (Having Logger and screenshot attached in the same) will be found under the reports-->qa->emailable-report.html
 ```
